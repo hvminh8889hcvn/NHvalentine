@@ -1,3 +1,68 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Valentine 💖</title>
+
+<style>
+body {
+  height: 100vh;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background: pink;
+  font-family: Arial;
+  overflow: hidden;
+}
+
+h1 {
+  margin-bottom: 40px;
+  text-align: center;
+}
+
+.buttons {
+  position: relative;
+  width: 100%;
+  height: 200px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 200px;
+}
+
+button {
+  padding: 20px 40px;
+  font-size: 24px;
+  border-radius: 12px;
+  border: none;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+#yes {
+  background: green;
+  color: white;
+}
+
+#no {
+  position: absolute;
+  background: red;
+  color: white;
+}
+</style>
+</head>
+
+<body>
+
+<h1>💕💕💕 Will you be my Valentine "H" BuBu? 💕💕💕</h1>
+
+<div class="buttons">
+  <button id="yes" onclick="alert('DuDu knew it 😘😘😘')">YES</button>
+  <button id="no">NO</button>
+</div>
+
 <script>
 const noBtn = document.getElementById("no");
 const yesBtn = document.getElementById("yes");
@@ -5,7 +70,7 @@ const yesBtn = document.getElementById("yes");
 let yesSize = 24;
 let noCount = 0;
 
-// tạo text nhắc
+// text nhắc
 const message = document.createElement("div");
 message.innerHTML = "💕 Em đừng say NO nữa 💕";
 message.style.position = "fixed";
@@ -15,7 +80,7 @@ message.style.color = "red";
 message.style.display = "none";
 document.body.appendChild(message);
 
-// vị trí ban đầu NO
+// vị trí ban đầu của NO
 noBtn.style.left = "60%";
 noBtn.style.top = "50%";
 
@@ -40,3 +105,6 @@ noBtn.addEventListener("mouseover", () => {
   }
 });
 </script>
+
+</body>
+</html>
