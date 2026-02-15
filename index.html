@@ -1,92 +1,10 @@
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
-<title>Valentine 💖</title>
-
-<style>
-body {
-  height: 100vh;
-  margin: 0;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  background: pink;
-  font-family: Arial;
-  overflow: hidden;
-}
-
-h1 {
-  margin-bottom: 40px;
-  text-align: center;
-}
-
-.buttons {
-  position: relative;
-  width: 400px;
-  height: 200px;
-}
-
-button {
-  padding: 20px 40px;
-  font-size: 24px;
-  border-radius: 12px;
-  border: none;
-  cursor: pointer;
-  transition: all 0.2s ease;
-}
-
-#yes {
-  background: green;
-  color: white;
-  position: absolute;
-  left: 40px;
-  top: 70px;
-}
-
-#no {
-  background: red;
-  color: white;
-  position: absolute;
-  right: 40px;
-  top: 70px;
-}
-
-/* rung nhẹ */
-@keyframes shake {
-  0% { transform: translateX(0); }
-  25% { transform: translateX(-4px); }
-  50% { transform: translateX(4px); }
-  75% { transform: translateX(-4px); }
-  100% { transform: translateX(0); }
-}
-
-.shake {
-  animation: shake 0.2s;
-}
-</style>
-</head>
-
-<body>
-
-<h1>💕💕💕 Will you be my Valentine "H" BuBu? 💕💕💕</h1>
-
-<div class="buttons">
-  <button id="yes">YES</button>
-  <button id="no">NO</button>
-</div>
-
-<audio id="music" src="perfect.mp3"></audio>
-
 <script>
-const box = document.querySelector(".buttons");
 const noBtn = document.getElementById("no");
 const yesBtn = document.getElementById("yes");
-const music = document.getElementById("music");
 
 let yesSize = 24;
 let noCount = 0;
+let angle = 0;
 
 // text nhắc
 const message = document.createElement("div");
@@ -98,52 +16,41 @@ message.style.color = "red";
 message.style.display = "none";
 document.body.appendChild(message);
 
-const safeDistance = 80;
+// bán kính chạy quanh YES
+const radiusX = 120;
+const radiusY = 60;
 
-// YES click → phát nhạc
-yesBtn.addEventListener("click", () => {
-  music.play();
-  alert("DuDu knew it 😘😘😘");
-});
+// rung nhẹ NO
+function shake() {
+  noBtn.style.transform = "translateX(-4px)";
+  setTimeout(()=>noBtn.style.transform="translateX(4px)",50);
+  setTimeout(()=>noBtn.style.transform="translateX(0)",100);
+}
 
 noBtn.addEventListener("mouseover", () => {
 
   noCount++;
 
-  // rung NO
-  noBtn.classList.add("shake");
-  setTimeout(()=>noBtn.classList.remove("shake"),200);
+  shake();
 
   // YES to dần
   yesSize += 6;
   yesBtn.style.fontSize = yesSize + "px";
 
   const yesRect = yesBtn.getBoundingClientRect();
-  const boxRect = box.getBoundingClientRect();
 
-  let x, y;
-  let tries = 0;
+  // tăng góc để chạy vòng tròn
+  angle += Math.PI / 4;
 
-  do {
-    const maxX = box.clientWidth - noBtn.offsetWidth;
-    const maxY = box.clientHeight - noBtn.offsetHeight;
+  const centerX = yesRect.left + yesRect.width / 2;
+  const centerY = yesRect.top + yesRect.height / 2;
 
-    x = Math.random() * maxX;
-    y = Math.random() * maxY;
+  let x = centerX + Math.cos(angle) * radiusX;
+  let y = centerY + Math.sin(angle) * radiusY;
 
-    const noCenterX = boxRect.left + x + noBtn.offsetWidth / 2;
-    const noCenterY = boxRect.top + y + noBtn.offsetHeight / 2;
-
-    const yesCenterX = yesRect.left + yesRect.width / 2;
-    const yesCenterY = yesRect.top + yesRect.height / 2;
-
-    const distance = Math.hypot(noCenterX - yesCenterX, noCenterY - yesCenterY);
-
-    if(distance > safeDistance + yesRect.width / 2) break;
-
-    tries++;
-
-  } while(tries < 20);
+  // giữ trong màn hình
+  x = Math.max(20, Math.min(window.innerWidth - 100, x));
+  y = Math.max(20, Math.min(window.innerHeight - 60, y));
 
   noBtn.style.left = x + "px";
   noBtn.style.top = y + "px";
@@ -153,6 +60,3 @@ noBtn.addEventListener("mouseover", () => {
   }
 });
 </script>
-
-</body>
-</html>
