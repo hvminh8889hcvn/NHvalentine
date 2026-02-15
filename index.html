@@ -2,7 +2,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Will you be my Valentine?</title>
+<title>Valentine 💖</title>
 
 <style>
 body {
@@ -18,13 +18,14 @@ body {
 button {
   padding: 20px 40px;
   font-size: 24px;
-  border: none;
   border-radius: 12px;
+  border: none;
   cursor: pointer;
+  transition: all 0.2s ease;
 }
 
 #yes {
-  background: #3cb371;
+  background: green;
   color: white;
 }
 
@@ -38,20 +39,29 @@ button {
 
 <body>
 
-<h1>Will you be my Valentine? 💗</h1>
+<h1>Will you be my Valentine H BuBu? 💕</h1>
 
-<button id="yes" onclick="alert('Yay ❤️')">Yes</button>
-<button id="no">No</button>
+<button id="yes" onclick="alert('DuDu knew it 😘')">YES</button>
+<button id="no">NO</button>
 
 <script>
 const noBtn = document.getElementById("no");
+const yesBtn = document.getElementById("yes");
+
+let yesSize = 24;
 
 noBtn.addEventListener("mouseover", () => {
+
+  // NO chạy trốn
   const x = Math.random() * (window.innerWidth - 100);
   const y = Math.random() * (window.innerHeight - 50);
 
   noBtn.style.left = x + "px";
   noBtn.style.top = y + "px";
+
+  // YES to dần
+  yesSize += 4;
+  yesBtn.style.fontSize = yesSize + "px";
 });
 </script>
 
